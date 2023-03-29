@@ -3,6 +3,7 @@ from bridge.actuator import Actuator
 from bridge.referee import Referee
 from bridge.bridgeReplacer import BridgeReplacer
 from bridge.vision import Vision
+from controllers.match.matchParameters import MatchParameters
 from controllers.replacer import Replacer
 from controllers.strategies import Strategies
 from controllers.controls import controller
@@ -31,13 +32,12 @@ if __name__ == "__main__":
     while True:
         referee.update()
         ref_data = referee.get_data()
-
         vision.update()
         field = vision.get_field_data()
 
         if ref_data["game_on"]:
-            objectives = Strategies.main_strategy(field)
-            speeds = controller(field, objectives)
+            strategies = Strategies(MatchParameters(field))
+            speeds = controller(field, strategies.main_strategy())
             actuator.send_all(speeds)
 
         elif ref_data["foul"] == FREE_KICK:
