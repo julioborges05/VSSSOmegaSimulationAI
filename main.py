@@ -3,6 +3,7 @@ from bridge.actuator import Actuator
 from bridge.referee import Referee
 from bridge.bridgeReplacer import BridgeReplacer
 from bridge.vision import Vision
+from controllers.replacer import Replacer
 from controllers.strategies import Strategies
 from controllers.controls import controller
 
@@ -24,6 +25,7 @@ if __name__ == "__main__":
     replacement = BridgeReplacer(mray, "224.5.23.2", 10004)
     vision = Vision(mray, "224.0.0.1", 10002)
     referee = Referee(mray, "224.5.23.2", 10003)
+    replacer = Replacer(replacement)
 
     # Main infinite loop
     while True:
@@ -33,30 +35,37 @@ if __name__ == "__main__":
         vision.update()
         field = vision.get_field_data()
 
-        if ref_data["foul"] == GAME_ON:
+        if ref_data["game_on"]:
             objectives = Strategies.main_strategy(field)
             speeds = controller(field, objectives)
             actuator.send_all(speeds)
 
-        elif ref_data["foul"] != FREE_KICK:
+        elif ref_data["foul"] == FREE_KICK:
+            replacer.setDefaultPositions(ref_data, mray)
             actuator.stop()
 
-        elif ref_data["foul"] != PENALTY_KICK:
+        elif ref_data["foul"] == PENALTY_KICK:
+            replacer.setDefaultPositions(ref_data, mray)
             actuator.stop()
 
-        elif ref_data["foul"] != GOAL_KICK:
+        elif ref_data["foul"] == GOAL_KICK:
+            replacer.setDefaultPositions(ref_data, mray)
             actuator.stop()
 
-        elif ref_data["foul"] != FREE_BALL:
+        elif ref_data["foul"] == FREE_BALL:
+            replacer.setDefaultPositions(ref_data, mray)
             actuator.stop()
 
-        elif ref_data["foul"] != KICKOFF:
+        elif ref_data["foul"] == KICKOFF:
+            replacer.setDefaultPositions(ref_data, mray)
             actuator.stop()
 
-        elif ref_data["foul"] != HALT:
+        elif ref_data["foul"] == HALT:
+            replacer.setDefaultPositions(ref_data, mray)
             actuator.stop()
 
-        elif ref_data["foul"] != KICKOFF:
+        elif ref_data["foul"] == KICKOFF:
+            replacer.setDefaultPositions(ref_data, mray)
             actuator.stop()
 
         else:
