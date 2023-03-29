@@ -1,4 +1,3 @@
-
 """
 This module was created to interact with the FIRAClient 
 located on https://github.com/yapiraUFPR/FIRAClient
@@ -47,6 +46,7 @@ lib.vision_robot_vangle.restype = c_double
 
 NUM_BOTS = 3
 
+
 # you can remove or modify these functions as you wish,
 # these are used here mainly to run the example main 
 def convert_width(w) -> float:
@@ -55,15 +55,17 @@ def convert_width(w) -> float:
     with origin point on bottom left corner of field
     """
     try:
-        return w * 100 
+        return w * 100
     except TypeError:
         return 0
 
+
 def inverse_width(w) -> float:
     try:
-        return (w / 100) 
+        return (w / 100)
     except TypeError:
         return 0
+
 
 def convert_length(d) -> float:
     """
@@ -75,11 +77,13 @@ def convert_length(d) -> float:
     except TypeError:
         return 0
 
+
 def inverse_length(d) -> float:
     try:
         return (d / 100)
     except TypeError:
         return 0
+
 
 def convert_angle(a) -> float:
     """
@@ -89,10 +93,10 @@ def convert_angle(a) -> float:
     try:
         if a > 0:
             if a > pi:
-                return a - 2*pi
+                return a - 2 * pi
         else:
             if a < -pi:
-                return a + 2*pi
+                return a + 2 * pi
         return a
 
     except TypeError:
