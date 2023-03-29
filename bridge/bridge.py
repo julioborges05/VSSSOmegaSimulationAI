@@ -47,7 +47,7 @@ lib.vision_robot_vangle.restype = c_double
 
 NUM_BOTS = 3
 
-# youcan remove or modify these functions as you wish, 
+# you can remove or modify these functions as you wish,
 # these are used here mainly to run the example main 
 def convert_width(w) -> float:
     """
