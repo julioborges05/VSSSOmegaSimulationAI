@@ -8,7 +8,7 @@ class Strategies:
         self.matchParameters = matchParameters
 
     def main_strategy(self):
-        """Sets all objetives to ball coordinates."""
+        """Sets all objectives to ball coordinates."""
         ball = self.matchParameters.ballValues
         objectives = [Entity(index=i) for i in range(NUM_BOTS)]
         objectives[0] = GoalKeeper(self.matchParameters).setGoalKeeperCoordinates()
