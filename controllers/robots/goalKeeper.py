@@ -12,7 +12,7 @@ class GoalKeeper:
         goalKeeperRobot.x = 75 if self.matchParameters.isYellowTeam else -75
         try:
             isBallGoingDown = self.matchParameters.ballValues.vy < 0
-            bigTriangle = self.__getBigTriangleValues(isBallGoingDown)
+            bigTriangle = self.getBigTriangleValues(isBallGoingDown)
             smallTriangle = self.__getSmallTriangleValues(bigTriangle)
 
             goalKeeperRobot.y = self.__getGoalKeeperVerticalValue(isBallGoingDown, smallTriangle.verticalValue)
@@ -20,7 +20,7 @@ class GoalKeeper:
         except ZeroDivisionError:
             return goalKeeperRobot
 
-    def __getBigTriangleValues(self, isBallGoingDown):
+    def getBigTriangleValues(self, isBallGoingDown):
         ballVelocityAngle = atan(self.matchParameters.ballValues.vx / self.matchParameters.ballValues.vy)
 
         bigTriangleVerticalValue = self.matchParameters.ballValues.y + (20 if isBallGoingDown else -20)
