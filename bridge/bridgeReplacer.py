@@ -4,7 +4,7 @@ from math import degrees
 from bridge.bridge import lib, inverse_length, inverse_width
 
 
-class Replacer:
+class BridgeReplacer:
     """
     Actuator client class,
     Use one instance at a time to minimize network errors.

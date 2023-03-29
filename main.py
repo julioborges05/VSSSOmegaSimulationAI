@@ -1,10 +1,19 @@
 from bridge.actuator import Actuator
 
 from bridge.referee import Referee
-from bridge.replacer import Replacer
+from bridge.bridgeReplacer import BridgeReplacer
 from bridge.vision import Vision
 from controllers.strategies import Strategies
 from controllers.controls import controller
+
+FREE_KICK = 0
+PENALTY_KICK = 1
+GOAL_KICK = 2
+FREE_BALL = 3
+KICKOFF = 4
+STOP = 5
+GAME_ON = 6
+HALT = 7
 
 if __name__ == "__main__":
     # Choose team (my robots are yellow)
@@ -12,7 +21,7 @@ if __name__ == "__main__":
 
     # Initialize all clients
     actuator = Actuator(mray, "127.0.0.1", 20011)
-    replacement = Replacer(mray, "224.5.23.2", 10004)
+    replacement = BridgeReplacer(mray, "224.5.23.2", 10004)
     vision = Vision(mray, "224.0.0.1", 10002)
     referee = Referee(mray, "224.5.23.2", 10003)
 
@@ -24,15 +33,31 @@ if __name__ == "__main__":
         vision.update()
         field = vision.get_field_data()
 
-        if ref_data["game_on"]:
+        if ref_data["foul"] == GAME_ON:
             objectives = Strategies.main_strategy(field)
             speeds = controller(field, objectives)
             actuator.send_all(speeds)
 
-        elif ref_data["foul"] != 7:
-            # foul behaviour
+        elif ref_data["foul"] != FREE_KICK:
+            actuator.stop()
+
+        elif ref_data["foul"] != PENALTY_KICK:
+            actuator.stop()
+
+        elif ref_data["foul"] != GOAL_KICK:
+            actuator.stop()
+
+        elif ref_data["foul"] != FREE_BALL:
+            actuator.stop()
+
+        elif ref_data["foul"] != KICKOFF:
+            actuator.stop()
+
+        elif ref_data["foul"] != HALT:
+            actuator.stop()
+
+        elif ref_data["foul"] != KICKOFF:
             actuator.stop()
 
         else:
-            # halt behavior
             actuator.stop()

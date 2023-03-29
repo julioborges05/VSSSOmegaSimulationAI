@@ -69,7 +69,7 @@ class Referee:
 
     def color(self):
         """
-        Returns interrupt color data from libira:
+        Returns interrupt color data from libfira:
             BLUE = 0,
             YELLOW = 1,
             NONE = 2,
