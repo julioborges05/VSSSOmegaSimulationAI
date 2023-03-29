@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-
-from bridge import (Actuator, Replacer, Vision, Referee, 
-                        NUM_BOTS, convert_angle, Entity)
+from bridge.actuator import Actuator
+from bridge.bridge import (NUM_BOTS, convert_angle)
 
 from math import pi, fmod, atan2, fabs
+
+from bridge.referee import Referee
+from bridge.replacer import Replacer
+from bridge.vision import Vision
+from bridge.entity import Entity
+
 
 def main_strategy(field):
     """Sets all objetives to ball coordinates."""

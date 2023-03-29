@@ -60,4 +60,4 @@ build/
 bin/
 __pycache__
 
-idea/
+.idea/
