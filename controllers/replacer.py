@@ -36,7 +36,7 @@ class Replacer:
 
         # Penalty for blue teams and my team is yellow
         elif not ref_data["yellow"] and myRobotsAreYellow:
-            BridgeReplacer.place(self.replacement, 0, -75, 0, 90)
+            BridgeReplacer.place(self.replacement, 0, 75, 0, 90)
             BridgeReplacer.place(self.replacement, 1, 35, 10, 90)
             BridgeReplacer.place(self.replacement, 2, 25, -10, 90)
 
