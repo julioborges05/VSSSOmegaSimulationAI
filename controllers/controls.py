@@ -6,10 +6,10 @@ def smallestAngleDiff(target, source):
     """Gets the smallest angle between two points in a arch"""
     a = fmod(target + 2 * pi, 2 * pi) - fmod(source + 2 * pi, 2 * pi)
 
-    if (a > pi):
+    if a > pi:
         a -= 2 * pi
     else:
-        if (a < -pi):
+        if a < -pi:
             a += 2 * pi
 
     return a
@@ -38,8 +38,6 @@ def controller(field, objectives):
         right_motor_speed = 0
         left_motor_speed = 0
 
-        reversed = False
-
         objective = objectives[i]
         our_bot = our_bots[i]
 
@@ -50,6 +48,7 @@ def controller(field, objectives):
 
         error = smallestAngleDiff(angle_rob, angle_obj)
 
+        reversed = False
         if fabs(error) > pi / 2.0 + pi / 20.0:
             reversed = True
             angle_rob = convert_angle(angle_rob + pi)
